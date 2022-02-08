@@ -15,7 +15,7 @@ phases:
        - ./aws/install --bin-dir /root/.pyenv/shims --install-dir /usr/local/aws-cli --update
    pre_build:
      commands:
-       
+       - echo "prebuild"
    build:
      commands:
        - sh create_stack.sh ${stack_number}
