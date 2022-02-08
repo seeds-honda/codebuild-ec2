@@ -1,0 +1,19 @@
+Parameters:
+    InstanceName:
+        Description: "Common stack name prefix"
+        Type: String
+        Default: ""
+Resources:
+    EC2: 
+        Type: AWS::EC2::Instance
+        Properties: 
+            ImageId: ami-03d79d440297083e3
+            KeyName: test-key
+            InstanceType: t2.micro
+            NetworkInterfaces: 
+                - AssociatePublicIpAddress: "false"
+                  DeviceIndex: "0"
+                  SubnetId: subnet-0ba8ccc922f32a172
+            Tags:
+                - Key: Name
+                  Value: !Ref InstanceName

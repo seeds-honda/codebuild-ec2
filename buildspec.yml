@@ -1,0 +1,24 @@
+version: 0.2
+
+env:
+  #stack_number：インスタンス作成数
+   variables:
+    stack_number: "value"
+   parameter-store:
+
+phases:
+   install:
+     commands:
+       - echo install aws cli v2
+       - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+       - unzip awscliv2.zip
+       - ./aws/install --bin-dir /root/.pyenv/shims --install-dir /usr/local/aws-cli --update
+   pre_build:
+     commands:
+       
+   build:
+     commands:
+       - sh create_stack.sh ${stack_number}
+   post_build:
+     commands:
+       - echo Build completed on date
