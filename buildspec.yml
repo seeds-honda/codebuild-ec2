@@ -4,8 +4,6 @@ env:
   #stack_number：インスタンス作成数
    variables:
     stack_number: "value"
-   parameter-store:
-
 phases:
    install:
      commands:
