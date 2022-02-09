@@ -3,7 +3,7 @@ version: 0.2
 env:
   #stack_number：インスタンス作成数
    variables:
-    stack_number: "value"
+    STACK_NUMBER: "value"
 phases:
    install:
      commands:
@@ -13,10 +13,13 @@ phases:
        - ./aws/install --bin-dir /root/.pyenv/shims --install-dir /usr/local/aws-cli --update
    pre_build:
      commands:
-       - echo "prebuild"
+       - echo "Count kpi instance"
+       - EXITING_CNT=`aws ec2 describe-instances --filter "Name=tag:Name,Values=ec2-test-*" "Name=instance-state-name,Values=running" | jq -r .Reservations[].Instances[].InstanceId | wc -l`
+       - START_CNT=$((EXITING_CNT+1))
+       - END_CNT=$((STACK_NUMBER+EXITING_CNT))
    build:
      commands:
-       - sh create_stack.sh ${stack_number}
+       - sh create_stack.sh ${START_CNT} ${END_CNT}
    post_build:
      commands:
        - echo Build completed on date
