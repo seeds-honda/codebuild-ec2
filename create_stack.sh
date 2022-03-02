@@ -9,9 +9,9 @@ if [ "$START_CNT" != "$CHAR_START_CNT" ]; then
     echo "START_CNT変数に数値以外の文字が入っています"
     exit 1
 fi
-​
+
 CHAR_END_CNT=$(expr "$END_CNT" : '\([0-9][0-9]*\)')
-if [ "$END_CNT" != "$HAR_END_CNT" ]; then
+if [ "$END_CNT" != "$CHAR_END_CNT" ]; then
     echo "END_CNT変数に数値以外の文字が入っています"
     exit 1
 fi
