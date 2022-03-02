@@ -19,6 +19,7 @@ phases:
        - END_CNT=$((START_CNT+STACK_NUMBER))
    build:
      commands:
+       - echo ${AMI_ID}
        - sh create_stack.sh ${START_CNT} ${END_CNT} ${AMI_ID}
    post_build:
      commands:
