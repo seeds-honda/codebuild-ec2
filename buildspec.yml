@@ -3,9 +3,10 @@ version: 0.2
 env:
   #stack_number：インスタンス作成数
    variables:
-    START_number: "value"
+    START_NUMBER: "value"
     STACK_NUMBER: "value"
     AMI_ID: "value"
+    INSTANCETYPE: "value"
 phases:
    install:
      commands:
@@ -15,12 +16,12 @@ phases:
        - ./aws/install --bin-dir /root/.pyenv/shims --install-dir /usr/local/aws-cli --update
    pre_build:
      commands:
-       - START_CNT=$((START_number-1))
+       - START_CNT=$((START_NUMBER-1))
        - END_CNT=$((START_CNT+STACK_NUMBER))
    build:
      commands:
        - echo ${AMI_ID}
-       - sh create_stack.sh ${START_CNT} ${END_CNT} ${AMI_ID}
+       - sh create_stack.sh ${START_CNT} ${END_CNT} ${AMI_ID} ${INSTANCETYPE}
    post_build:
      commands:
        - echo Build completed on date

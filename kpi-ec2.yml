@@ -1,10 +1,14 @@
 Parameters:
     InstanceName:
-        Description: "Common stack name prefix"
+        Description: "InstanceName"
         Type: String
         Default: ""
     AMIID:
-        Description: "Common stack name prefix"
+        Description: "AMI_ID"
+        Type: String
+        Default: ""
+    InstanceType:
+        Description: "InstanceType"
         Type: String
         Default: ""
 Resources:
@@ -12,12 +16,27 @@ Resources:
         Type: AWS::EC2::Instance
         Properties: 
             ImageId: !Ref AMIID
+            #ImageId: ami-05e7c17d8163170e7
             KeyName: test-key
-            InstanceType: t2.micro
-            NetworkInterfaces: 
-                - AssociatePublicIpAddress: "true"
-                  DeviceIndex: "0"
-                  SubnetId: subnet-0ba8ccc922f32a172
+            InstanceType: !Ref InstanceType
+            #InstanceType: t2.micro
+            SecurityGroupIds:
+                - sg-08a6848144065c5aa
+            SubnetId: subnet-03ffbf70b2218313e
+            Monitoring: true
             Tags:
                 - Key: Name
                   Value: !Ref InstanceName
+            BlockDeviceMappings: 
+                - DeviceName: "/dev/xvda"
+                  Ebs: 
+                    DeleteOnTermination: "false"
+                    VolumeSize: "10"
+                    VolumeType: gp2
+            IamInstanceProfile: !Ref InstanceProfile
+    InstanceProfile:
+        Type: AWS::IAM::InstanceProfile
+        Properties:
+            Path: /
+            Roles: 
+            - "2022lambda"

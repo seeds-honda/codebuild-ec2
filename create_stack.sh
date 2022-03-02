@@ -3,6 +3,7 @@
 START_CNT=$1
 END_CNT=$2
 AMI=$3
+INSTANCETYPE=$4
 
 CHAR_START_CNT=$(expr "$START_CNT" : '\([0-9][0-9]*\)')
 if [ "$START_CNT" != "$CHAR_START_CNT" ]; then
@@ -19,5 +20,8 @@ if [ "$END_CNT" != "$CHAR_END_CNT" ]; then
 fi
 
 for i in $(seq $START_CNT $END_CNT); do
-    aws cloudformation create-stack --stack-name ec2-test-${i} --template-body file://kpi-ec2.yml --parameters ParameterKey=AMIID,ParameterValue=${AMI} ParameterKey=InstanceName,ParameterValue=ec2-test-${i}
+    aws cloudformation create-stack --stack-name ec2-test-${i} --template-body file://kpi-ec2.yml \
+    --parameters ParameterKey=InstanceName,ParameterValue=ec2-test-${i} \
+    ParameterKey=AMIID,ParameterValue=${AMI} \
+    ParameterKey=InstanceType,ParameterValue=${INSTANCETYPE}
 done
