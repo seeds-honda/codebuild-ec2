@@ -17,5 +17,5 @@ if [ "$END_CNT" != "$CHAR_END_CNT" ]; then
 fi
 
 for i in $(seq $START_CNT $END_CNT); do
-    aws cloudformation create-stack --stack-name ec2-test-${i} --template-body file://kpi_ec2.yml --parameters ParameterKey=AMI_ID,ParameterValue=${$3} ParameterKey=InstanceName,ParameterValue=ec2-test-${i}
+    aws cloudformation create-stack --stack-name ec2-test-${i} --template-body file://kpi_ec2.yml --parameters ParameterKey=AMI_ID,ParameterValue=${AMI} ParameterKey=InstanceName,ParameterValue=ec2-test-${i}
 done
