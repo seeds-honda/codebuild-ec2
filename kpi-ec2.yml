@@ -1,0 +1,23 @@
+Parameters:
+    InstanceName:
+        Description: "Common stack name prefix"
+        Type: String
+        Default: ""
+    AMI_ID:
+        Description: "Common stack name prefix"
+        Type: String
+        Default: ""
+Resources:
+    EC2: 
+        Type: AWS::EC2::Instance
+        Properties: 
+            ImageId: ami-0bef6ef06786811bc
+            KeyName: !Ref AMI_ID
+            InstanceType: t2.micro
+            NetworkInterfaces: 
+                - AssociatePublicIpAddress: "true"
+                  DeviceIndex: "0"
+                  SubnetId: subnet-0ba8ccc922f32a172
+            Tags:
+                - Key: Name
+                  Value: !Ref InstanceName
