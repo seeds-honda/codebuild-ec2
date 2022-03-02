@@ -3,7 +3,7 @@ Parameters:
         Description: "Common stack name prefix"
         Type: String
         Default: ""
-    AMI_ID:
+    AMIID:
         Description: "Common stack name prefix"
         Type: String
         Default: ""
@@ -11,7 +11,7 @@ Resources:
     EC2: 
         Type: AWS::EC2::Instance
         Properties: 
-            ImageId: !Ref AMI_ID
+            ImageId: !Ref AMIID
             KeyName: test-key
             InstanceType: t2.micro
             NetworkInterfaces: 
