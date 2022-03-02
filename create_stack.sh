@@ -23,5 +23,6 @@ for i in $(seq $START_CNT $END_CNT); do
     aws cloudformation create-stack --stack-name ec2-test-${i} --template-body file://kpi-ec2.yml \
     --parameters ParameterKey=InstanceName,ParameterValue=ec2-test-${i} \
     ParameterKey=AMIID,ParameterValue=${AMI} \
-    ParameterKey=InstanceType,ParameterValue=${INSTANCETYPE}
+    ParameterKey=InstanceType,ParameterValue=${INSTANCETYPE} \
+    --capabilities CAPABILITY_NAMED_IAM
 done
