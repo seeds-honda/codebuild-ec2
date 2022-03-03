@@ -21,7 +21,7 @@ if [ "$END_CNT" != "$CHAR_END_CNT" ]; then
     exit 1
 fi
 
-for i in $(seq 0$START_CNT 0$END_CNT); do
+for i in $(seq $START_CNT $END_CNT); do
     EXITING_CNT=`aws ec2 describe-instances --filter "Name=tag:Name,Values=${INSTANCENAME}0${i}" "Name=instance-state-name,Values=running" | jq -r .Reservations[].Instances[].InstanceId | wc -l`
     if (( $EXITING_CNT == 0 )); then
         aws cloudformation create-stack --stack-name ec2-test-0${i} --template-body file://kpi-ec2.yml \
