@@ -19,7 +19,7 @@ phases:
        - ./aws/install --bin-dir /root/.pyenv/shims --install-dir /usr/local/aws-cli --update
    pre_build:
      commands:
-       - END_CNT=$((Start_Nunmber+Instance_Number))
+       - END_CNT=$((Start_Nunmber -1 + Instance_Number))
    build:
      commands:
        - echo ${AMI_ID}
