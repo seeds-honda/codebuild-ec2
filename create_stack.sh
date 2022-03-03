@@ -20,9 +20,14 @@ if [ "$END_CNT" != "$CHAR_END_CNT" ]; then
 fi
 
 for i in $(seq $START_CNT $END_CNT); do
-    aws cloudformation create-stack --stack-name ec2-test-${i} --template-body file://kpi-ec2.yml \
-    --parameters ParameterKey=InstanceName,ParameterValue=ec2-test-${i} \
-    ParameterKey=AMIID,ParameterValue=${AMI} \
-    ParameterKey=InstanceType,ParameterValue=${INSTANCETYPE} \
-    --capabilities CAPABILITY_NAMED_IAM
+    EXITING_CNT=`aws ec2 describe-instances --filter "Name=tag:Name,Values=ec2-test-${i}" "Name=instance-state-name,Values=running" | jq -r .Reservations[].Instances[].InstanceId | wc -l`
+    if (( $EXITING_CNT == 0 )); then
+        aws cloudformation create-stack --stack-name ec2-test-${i} --template-body file://kpi-ec2.yml \
+        --parameters ParameterKey=InstanceName,ParameterValue=ec2-test-${i} \
+        ParameterKey=AMIID,ParameterValue=${AMI} \
+        ParameterKey=InstanceType,ParameterValue=${INSTANCETYPE} \
+        --capabilities CAPABILITY_NAMED_IAM
+    else
+        echo "インスタンス：ec2-test-${i}は既に作成されています。"
+    fi
 done
