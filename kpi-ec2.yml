@@ -37,4 +37,4 @@ Resources:
         Properties:
             Path: /
             Roles: 
-            - "BULL-KPI-Servers"
+            - "2022lambda"
