@@ -19,12 +19,11 @@ phases:
        - ./aws/install --bin-dir /root/.pyenv/shims --install-dir /usr/local/aws-cli --update
    pre_build:
      commands:
-       - START_CNT=$((Start_Nunmber-1))
-       - END_CNT=$((START_CNT+Instance_Number))
+       - END_CNT=$((Start_Nunmber+Instance_Number))
    build:
      commands:
        - echo ${AMI_ID}
-       - sh create_stack.sh ${START_CNT} ${END_CNT} ${AMI_ID} ${InstanceType}
+       - sh create_stack.sh ${Start_Nunmber} ${END_CNT} ${AMI_ID} ${InstanceType}
    post_build:
      commands:
        - echo Build completed on date
