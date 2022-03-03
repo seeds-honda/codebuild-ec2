@@ -25,6 +25,8 @@ Resources:
             Tags:
                 - Key: Name
                   Value: !Ref InstanceName
+                - Key: Type
+                  Value: Production-BULL-KPI
             BlockDeviceMappings: 
                 - DeviceName: "/dev/xvda"
                   Ebs: 

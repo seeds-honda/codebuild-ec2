@@ -1,10 +1,12 @@
 #!/bin/bash
 
+## 引数
 START_CNT=$1
 END_CNT=$2
 AMI=$3
 INSTANCETYPE=$4
 
+## 起動確認するインスタンスネーム
 INSTANCENAME=ec2-test-
 
 CHAR_START_CNT=$(expr "$START_CNT" : '\([0-9][0-9]*\)')
@@ -30,6 +32,6 @@ for i in $(seq $START_CNT $END_CNT); do
         ParameterKey=InstanceType,ParameterValue=${INSTANCETYPE} \
         --capabilities CAPABILITY_NAMED_IAM
     else
-        echo "インスタンス：ec2-test-${i}は既に作成されています。"
+        echo "インスタンス：${INSTANCENAME}0${i}は既に作成されています。"
     fi
 done
